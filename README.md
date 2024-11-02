@@ -1,9 +1,14 @@
 ## Intro. to Node.js Auth App with Passport.js
-### Error Messages
+### 0. Error Messages
 
-### Admin Dashboard
+
+### 1. Admin Dashboard
 
 ![admin](public/admindashboard.png)
 
-### GitHub Login
+### 2. GitHub Login
 ![githubUser](public/githubUser.png)
+
+<hr/>
+
+![githubdashboard](public/githubdashboard.png)
