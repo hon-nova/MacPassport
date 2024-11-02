@@ -1,0 +1,22 @@
+<h1 class="mt-4">ADMIN DASHBOARD</h1>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+<p>Current Active Sessions:</p>
+
+<% if (sessions) { %>
+<% sessions.map((session)=> { %>
+   <ul>
+       <li>SessionID: <%= session.sessionId %></li>
+       <li>UserID: <%= session.userId %></li>      
+      
+       <li><form action="/admin/revoke/<%= session.userId %>" method="POST">           
+           <button type="submit" class="revokeBtn"            
+           <%= session.isPriviledgedAdmin ? 'disabled' : '' %>>Revoke Session</button>        
+        
+       </form></li>
+       <hr/>
+      
+   </ul>
+<% })%>
+
+
+<a href="/auth/logout" class="btn btn-secondary">Logout</a>
