@@ -2,6 +2,7 @@
 ### Error Messages
 
 ### Admin Dashboard
+
 ![admin](public/adminDashboard.png)
 
 ### GitHub Login
