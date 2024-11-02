@@ -16,11 +16,9 @@ const express_1 = __importDefault(require("express"));
 const checkAuth_1 = require("../middleware/checkAuth");
 const userController_1 = require("../controllers/userController");
 const path_1 = __importDefault(require("path"));
-const sessionsDir = path_1.default.join(__dirname, 'sessions');
+const sessionsDir = path_1.default.join(__dirname, '../../sessions');
+console.log(`sessionDir: `, sessionsDir);
 const fs_1 = __importDefault(require("fs"));
-/**
- 
- */
 const router = express_1.default.Router();
 router.get("/", (req, res) => {
     res.send("Welcome HomePage");
@@ -33,11 +31,14 @@ router.get("/admin", (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const sessionFiles = yield fs_1.default.promises.readdir(sessionsDir);
         const sessions = [];
+        console.log(`seesionFiles: `, sessionFiles);
         let isPriviledgedAdmin = false;
         for (const file of sessionFiles) {
             const filePath = path_1.default.join(sessionsDir, file);
+            // console.log(`filePath:  `,filePath)
             const sessionData = yield fs_1.default.promises.readFile(filePath, "utf-8");
             const sessionObj = JSON.parse(sessionData);
+            // console.log(`sessionObj parse:  `,sessionObj)
             try {
                 let myUser = (0, userController_1.getUserById)(sessionObj.passport.user);
                 if (myUser) {
@@ -55,17 +56,13 @@ router.get("/admin", (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 });
             }
         }
-        console.log(`all sessions: `, sessions);
+        // console.log(`all sessions: `,sessions)
         res.render("admin", { sessions, user: req.user });
     }
     catch (error) {
         console.log(`CATCH admin: ${error}`);
     }
-    res.render('admin', { user: req.user });
 }));
-/**
- /admin/revoke/<%= session.userId %>
- */
 router.post("/admin/revoke/:userId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const thisUserId = req.params.userId;
     try {

@@ -33,12 +33,21 @@ router.post("/login", (req, res, next) => {
     })(req, res, next);
 });
 router.get("/github", passport_1.default.authenticate("github"));
+// router.get("/logout", (req,res)=>{
+//    req.logout((err)=>{
+//       if(err) {
+//           console.log(err)
+//       }
+//    });
+//    res.redirect("/auth/login")
+// });
 router.get("/logout", (req, res) => {
     req.logout((err) => {
         if (err) {
             console.log(err);
+            return res.redirect("/auth/login");
         }
+        res.redirect("/auth/login");
     });
-    res.redirect("/auth/login");
 });
 exports.default = router;
