@@ -3,7 +3,7 @@
 
 ### Admin Dashboard
 
-![admin](public/adminDashboard.png)
+![admin](public/admindashboard.png)
 
 ### GitHub Login
 ![githubUser](public/githubUser.png)
