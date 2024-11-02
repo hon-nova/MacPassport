@@ -12,23 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 require('dotenv').config();
 const passport_github2_1 = require("passport-github2");
-// console.log(process.env.GITHUB_CLIENT_ID)
-// console.log(process.env.GITHUB_CLIENT_SECRET)
+const userModel_1 = require("../../models/userModel");
 if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
     throw new Error("Missing GitHub client ID or secret");
 }
-// const githubStrategy:GitHubStrategy = new GitHubStrategy({
-//       clientID:process.env.GITHUB_CLIENT_ID as string,
-//       clientSecret:process.env.GITHUB_CLIENT_SECRET as string,
-//       callbackURL:"http://localhost:8000/auth/github/callback",
-//       passReqToCallback: true,
-//       scope: ['user:email']
-//    },
-//    async(req: Request, accessToken: string, refreshToken: string,profile: User, done: Function)=>{
-//       console.log(`accessToken: `,accessToken)
-//       console.log(`profile: `,profile)
-//       //TODO here...
-//   })
 const githubStrategy = new passport_github2_1.Strategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -36,9 +23,23 @@ const githubStrategy = new passport_github2_1.Strategy({
     passReqToCallback: true,
     scope: ['user:email']
 }, (req, accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     console.log(`accessToken: `, accessToken);
     console.log(`profile: `, profile);
-    // TODO here...
+    const email = profile.emails && ((_a = profile.emails[0]) === null || _a === void 0 ? void 0 : _a.value) ? profile.emails[0].value : null;
+    if (!email) {
+        console.log("GitHub email not available.");
+        return done(new Error("GitHub email not available"), false);
+    }
+    let githubUser = {
+        id: parseInt(profile.id),
+        name: profile.displayName,
+        email: email,
+        role: 'user'
+    };
+    console.log(`githubUser: ${githubUser}`);
+    userModel_1.database.push(githubUser);
+    return done(null, githubUser);
 }));
 const passportGitHubStrategy = {
     name: 'github',

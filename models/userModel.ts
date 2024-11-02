@@ -1,12 +1,12 @@
 export interface User {
    id: number|string,
    name:string,
-   email:string,
-   passpord:string,
+   email?:string,
+   password?:string,
    role:string
 }
 
-const database = [
+const database:User[] = [
    {
      id: 1,
      name: "Jimmy Smith",
@@ -39,19 +39,31 @@ const database = [
  const userModel = { 
   
    findOne: (email: string) => {
-     const user = database.find((user) => user.email === email);
+    try {
+      const user = database.find((user) => user.email === email);
      if (user) {
        return user;
      }
      throw new Error(`Couldn't find user with email: ${email}`);
+   //   return
+    } catch(error){
+      console.log(`userModel can't find user: `,error)     
+    }     
    },
    
    findById: (id: number|string) => {
-     const user = database.find((user) => user.id === id);
-     if (user) {
-       return user;
-     }
-     throw new Error(`Couldn't find user with id: ${id}`);
+      try {
+         const user = database.find((user) => user.id === id);
+         if (user) {
+           return user;
+         }
+         return null;
+         
+      } catch(error){
+         console.log(error)
+         // throw new Error(`Couldn't find user with id:`);
+      }
+     
    },
  };
  

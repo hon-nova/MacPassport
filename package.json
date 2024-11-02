@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/connect-flash": "^0.0.40",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
     "@types/node": "^22.8.6",
@@ -23,6 +24,7 @@
     "@types/passport-github2": "^1.2.9",
     "@types/passport-local": "^1.0.38",
     "@types/session-file-store": "^1.2.5",
+    "connect-flash": "^0.1.1",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",

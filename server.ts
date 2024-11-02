@@ -10,7 +10,7 @@ const port = process.env.port || 8000;
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(
   session({
@@ -25,6 +25,8 @@ app.use(
     },
   })
 );
+
+
 
 import authRoute from "./routes/authRoute";
 import indexRoute from "./routes/indexRoute";
@@ -49,11 +51,9 @@ passportMiddleware(app);
 //   next();
 // });
 
-
 app.use("/", indexRoute);
 app.use("/auth", authRoute);
 
-
 app.listen(port, () => {
-  console.log(`🚀 Server has started on http://localhost:${port}`);
+  console.log(`🚀 Server has started at http://localhost:${port}`);
 });

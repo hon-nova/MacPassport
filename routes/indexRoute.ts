@@ -22,15 +22,15 @@ router.get("/admin", async(req,res)=>{
     try {
       const sessionFiles = await fs.promises.readdir(sessionsDir);
       const sessions = [];
-      console.log(`seesionFiles: `,sessionFiles)   
+       
       let isPriviledgedAdmin = false
       for (const file of sessionFiles) {
 
          const filePath = path.join(sessionsDir, file);
-         // console.log(`filePath:  `,filePath)
+        
          const sessionData = await fs.promises.readFile(filePath, "utf-8" );         
          const sessionObj = JSON.parse(sessionData);
-         // console.log(`sessionObj parse:  `,sessionObj)
+         
          try {
             let myUser = getUserById(sessionObj.passport.user)
             if(myUser){
@@ -51,33 +51,31 @@ router.get("/admin", async(req,res)=>{
       // console.log(`all sessions: `,sessions)
       res.render("admin", {sessions, user: req.user})
  
-    } catch(error){
-       console.log(`CATCH admin: ${error}`)
-    } 
-   
+   } catch(error){
+      console.log(`CATCH admin: ${error}`)
+   }
 })
 
-router.post("/admin/revoke/:userId", async(req,res)=>{
-   
+router.post("/admin/revoke/:userId", async(req,res)=>{   
    const thisUserId= req.params.userId;  
    try {      
-     const sessionFiles = await fs.promises.readdir(sessionsDir);        
-       for (const file of sessionFiles) {
-         const filePath = path.join(sessionsDir, file);
-         // console.log(`filePath: `,filePath)
-         const sessionData = JSON.parse(await fs.promises.readFile(filePath, "utf-8"));
-         console.log(`sessionData: `,sessionData)
-         
-         if (sessionData.passport && sessionData.passport.user === parseInt(thisUserId)) {
-            console.log(`filePath to be revoked: ${filePath}`)
-            await fs.promises.unlink(filePath);
-            console.log(`Revoked session ${file} for user ${thisUserId}`);    
-         }               
-       }
-       res.redirect("/admin");
+      const sessionFiles = await fs.promises.readdir(sessionsDir);        
+         for (const file of sessionFiles) {
+            const filePath = path.join(sessionsDir, file);
+            // console.log(`filePath: `,filePath)
+            const sessionData = JSON.parse(await fs.promises.readFile(filePath, "utf-8"));
+            console.log(`sessionData: `,sessionData)
+            
+            if (sessionData.passport && sessionData.passport.user === parseInt(thisUserId)) {
+               // console.log(`filePath to be revoked: ${filePath}`)
+               await fs.promises.unlink(filePath);
+               console.log(`Revoked session ${file} for user ${thisUserId}`);    
+            }               
+         }
+      res.redirect("/admin");
    } catch (error) {
-       console.error(`Error revoking sessions for user ${thisUserId}:`, error);
-       res.status(500).send(`Failed to revoke sessions for the user: ${error}`);
+      console.error(`Error revoking sessions for user ${thisUserId}:`, error);
+      res.status(500).send(`Failed to revoke sessions for the user: ${error}`);
    }
 })
 export default router

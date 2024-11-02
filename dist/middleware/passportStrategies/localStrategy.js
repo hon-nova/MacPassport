@@ -11,7 +11,13 @@ const localStrategy = new passport_local_1.Strategy({
     passwordField: "password"
 }, (email, password, done) => {
     const user = (0, userController_1.getUserByEmailAndPassword)(email, password);
-    return user ? done(null, user) : done(null, false, { message: "Your login details are not valid. Please try again" });
+    if (!user) {
+        return done(null, false, { message: `Couldn't find user with email: ${email}` });
+    }
+    else if (!(0, userController_1.isUserValid)(user, password)) {
+        return done(null, false, { message: "Password is incorrect." });
+    }
+    return done(null, user);
 });
 passport_1.default.serializeUser(function (user, done) {
     done(null, user.id);

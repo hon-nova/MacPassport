@@ -34,18 +34,30 @@ const database = [
 exports.database = database;
 const userModel = {
     findOne: (email) => {
-        const user = database.find((user) => user.email === email);
-        if (user) {
-            return user;
+        try {
+            const user = database.find((user) => user.email === email);
+            if (user) {
+                return user;
+            }
+            throw new Error(`Couldn't find user with email: ${email}`);
+            //   return
         }
-        throw new Error(`Couldn't find user with email: ${email}`);
+        catch (error) {
+            console.log(`userModel can't find user: `, error);
+        }
     },
     findById: (id) => {
-        const user = database.find((user) => user.id === id);
-        if (user) {
-            return user;
+        try {
+            const user = database.find((user) => user.id === id);
+            if (user) {
+                return user;
+            }
+            return null;
         }
-        throw new Error(`Couldn't find user with id: ${id}`);
+        catch (error) {
+            console.log(error);
+            // throw new Error(`Couldn't find user with id:`);
+        }
     },
 };
 exports.userModel = userModel;

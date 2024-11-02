@@ -13,7 +13,7 @@ var fileStoreOptions = {};
 const port = process.env.port || 8000;
 const app = (0, express_1.default)();
 app.set("view engine", "ejs");
-app.use(express_1.default.static(path_1.default.join(__dirname, "public")));
+app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
 app.use((0, express_session_1.default)({
     store: new FileStore(fileStoreOptions),
     secret: "secret",
@@ -44,5 +44,5 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use("/", indexRoute_1.default);
 app.use("/auth", authRoute_1.default);
 app.listen(port, () => {
-    console.log(`🚀 Server has started on http://localhost:${port}`);
+    console.log(`🚀 Server has started at http://localhost:${port}`);
 });

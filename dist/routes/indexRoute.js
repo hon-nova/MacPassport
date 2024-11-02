@@ -31,14 +31,11 @@ router.get("/admin", (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const sessionFiles = yield fs_1.default.promises.readdir(sessionsDir);
         const sessions = [];
-        console.log(`seesionFiles: `, sessionFiles);
         let isPriviledgedAdmin = false;
         for (const file of sessionFiles) {
             const filePath = path_1.default.join(sessionsDir, file);
-            // console.log(`filePath:  `,filePath)
             const sessionData = yield fs_1.default.promises.readFile(filePath, "utf-8");
             const sessionObj = JSON.parse(sessionData);
-            // console.log(`sessionObj parse:  `,sessionObj)
             try {
                 let myUser = (0, userController_1.getUserById)(sessionObj.passport.user);
                 if (myUser) {
@@ -73,7 +70,7 @@ router.post("/admin/revoke/:userId", (req, res) => __awaiter(void 0, void 0, voi
             const sessionData = JSON.parse(yield fs_1.default.promises.readFile(filePath, "utf-8"));
             console.log(`sessionData: `, sessionData);
             if (sessionData.passport && sessionData.passport.user === parseInt(thisUserId)) {
-                console.log(`filePath to be revoked: ${filePath}`);
+                // console.log(`filePath to be revoked: ${filePath}`)
                 yield fs_1.default.promises.unlink(filePath);
                 console.log(`Revoked session ${file} for user ${thisUserId}`);
             }

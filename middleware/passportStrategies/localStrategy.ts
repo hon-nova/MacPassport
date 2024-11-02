@@ -1,6 +1,6 @@
 import passport from 'passport'
-import { Strategy as LocalStrategy, VerifyFunction, VerifyFunctionWithRequest } from 'passport-local'
-import { getUserByEmailAndPassword, getUserById } from "../../controllers/userController"
+import { Strategy as LocalStrategy } from 'passport-local'
+import { getUserByEmailAndPassword, getUserById,isUserValid } from "../../controllers/userController"
 import { PassportStrategy } from '../../interfaces/index'
 import { User } from '../../models/userModel'
 
@@ -10,7 +10,12 @@ const localStrategy = new LocalStrategy({
 },
 (email,password,done)=>{
    const user = getUserByEmailAndPassword(email,password)
-   return user ? done(null,user): done(null,false,{message: "Your login details are not valid. Please try again"})
+   if(!user){
+      return done(null, false, { message: `Couldn't find user with email: ${email}` });
+   } else if (!isUserValid(user,password)){
+      return done(null, false, { message: "Password is incorrect." });
+   }
+   return done(null,user)
 }
 )
 passport.serializeUser(function (user:any,done:Function){
