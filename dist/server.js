@@ -32,15 +32,15 @@ app.use(express_1.default.json());
 app.use(express_ejs_layouts_1.default);
 app.use(express_1.default.urlencoded({ extended: true }));
 (0, passportMiddleware_1.default)(app);
-// app.use((req, res, next) => {
-//   console.log(`User details are: `);
-//   console.log(req.user);
-//   console.log("Entire session object:");
-//   console.log(req.session);
-//   console.log(`Session details are: `);
-//   console.log((req.session as any).passport);
-//   next();
-// });
+app.use((req, res, next) => {
+    console.log(`User details are: `);
+    console.log(req.user);
+    console.log("Entire session object:");
+    console.log(req.session);
+    console.log(`Session details are: `);
+    console.log(req.session.passport);
+    next();
+});
 app.use("/", indexRoute_1.default);
 app.use("/auth", authRoute_1.default);
 app.listen(port, () => {

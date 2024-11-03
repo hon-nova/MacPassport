@@ -39,12 +39,10 @@ const userModel = {
             if (user) {
                 return user;
             }
-            //  throw new Error(`Couldn't find user with email: ${email}`);
             return null;
         }
         catch (error) {
             console.log(`userModel can't find user: `, error);
-            // throw error  
         }
     },
     findById: (id) => {
@@ -53,12 +51,11 @@ const userModel = {
             if (user) {
                 return user;
             }
-            //  throw new Error(`Couldn't find user with id:`);
             return null;
         }
         catch (error) {
             console.log(error);
-            //  throw error
+            //  throw error         
         }
     },
 };

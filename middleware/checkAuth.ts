@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-// import { User } from '../models/userModel'
 import { User } from "../models/userModel";
 
 export const ensureAuthenticated = (

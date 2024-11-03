@@ -2,7 +2,7 @@ import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { getUserByEmail, getUserById,isUserValid } from "../../controllers/userController"
 import { PassportStrategy } from '../../interfaces/index'
-import { User } from '../../models/userModel'
+
 
 const localStrategy = new LocalStrategy({
    usernameField: "email",

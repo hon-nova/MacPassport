@@ -1,8 +1,7 @@
 import express, { Request, Response } from 'express'
 import passport from 'passport'
 import { ensureAuthenticated } from '../middleware/checkAuth'
-import { getUserByEmailAndPassword, getUserById } from '../controllers/userController'
-import { User } from "../models/userModel"
+import { getUserById } from '../controllers/userController'
 import path from 'path'
 const sessionsDir = path.join(__dirname,'../../sessions')
 console.log(`sessionDir: `,sessionsDir)
@@ -25,7 +24,6 @@ router.get("/admin", async(req,res)=>{
        
       let isPriviledgedAdmin = false
       for (const file of sessionFiles) {
-         // console.log(`file.split('.')[0]: `,file.split('.')[0])
          const filePath = path.join(sessionsDir, file);
         
          const sessionData = await fs.promises.readFile(filePath, "utf-8" );         

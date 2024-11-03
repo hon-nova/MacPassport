@@ -8,17 +8,12 @@
          <li>UserID: <%= session.userId %></li> 
          <li><form action="/admin/revoke/<%= session.userId %>" method="POST">           
             <button type="submit" class="revokeBtn"            
-            <%= session.isPriviledgedAdmin ? 'disabled' : '' %>>Revoke Session</button> 
-         
+            <%= session.isPriviledgedAdmin ? 'disabled' : '' %>>Revoke Session</button>         
          </form></li>
          <hr/>      
       </ul>
    <% })%>
 <%} else { %>
    <p>No sessions available</p>
- <%} %>  
-  
-
-
-
+ <%} %> 
 <a href="/auth/logout" class="btn btn-secondary">Logout</a>
