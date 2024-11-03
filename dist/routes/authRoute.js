@@ -10,16 +10,16 @@ const connect_flash_1 = __importDefault(require("connect-flash"));
 const router = express_1.default.Router();
 router.use((0, connect_flash_1.default)());
 router.get("/login", checkAuth_1.forwardAuthenticated, (req, res) => {
-    res.render("login", { messages: { error: req.flash("error") } });
+    let errorMsg = req.flash('error');
+    res.render("login", { messages: errorMsg });
 });
 router.post("/login", (req, res, next) => {
-    passport_1.default.authenticate("local", (err, user, info) => {
+    passport_1.default.authenticate("local", { failureFlash: true, failureRedirect: "/auth/login" }, (err, user, info) => {
         if (err) {
             return next(err);
         }
-        // let existingUser = getUserByEmailAndPassword(email,password)
         if (!user) {
-            req.flash("errors", info.message);
+            req.flash('error', info.message);
             return res.redirect("/auth/login");
         }
         req.logIn(user, (err) => {

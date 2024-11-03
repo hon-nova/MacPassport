@@ -26,8 +26,6 @@ app.use(
   })
 );
 
-
-
 import authRoute from "./routes/authRoute";
 import indexRoute from "./routes/indexRoute";
 

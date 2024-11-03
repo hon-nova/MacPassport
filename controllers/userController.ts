@@ -10,6 +10,14 @@ const getUserByEmailAndPassword = (email: string, password: string) => {
   }
   return null;
 };
+const getUserByEmail = (email:string)=>{
+  let user = userModel.findOne(email)
+  if(user){
+    return user
+  }
+  return null
+  
+}
 const getUserById = (id:string|number) => {
   let user = userModel.findById(id);
   if (user) {
@@ -26,5 +34,6 @@ function isUserValid(user: User, password: string) {
 export {
   getUserByEmailAndPassword,
   getUserById,
+  getUserByEmail,
   isUserValid
 };

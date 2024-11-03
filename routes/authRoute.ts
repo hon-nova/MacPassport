@@ -6,29 +6,30 @@ import { IVerifyOptions } from "passport-local";
 import { getUserByEmailAndPassword } from '../controllers/userController';
 import flash from 'connect-flash';
 
+
 const router = express.Router()
-router.use(flash())
+router.use(flash());
 
 router.get("/login", forwardAuthenticated, (req,res)=>{
-   res.render("login", { messages: { error: req.flash("error") } })
+   let errorMsg= req.flash('error');
+   res.render("login",{ messages: errorMsg } )
 })
 router.post("/login", (req, res, next) => {
-   passport.authenticate("local", (err:Error, user:User, info:IVerifyOptions) => {
-        if (err) { return next(err); }
-        // let existingUser = getUserByEmailAndPassword(email,password)
-        if (!user) { 
-         req.flash("errors", info.message);
-
-        return res.redirect("/auth/login"); }
-        req.logIn(user, (err) => {
-           if (err) { return next(err); }
-           if(isAdmin(req)){
+   passport.authenticate("local", {failureFlash: true, failureRedirect: "/auth/login"},(err:Error, user:User, info:IVerifyOptions) => {
+      if (err) { return next(err); }
+         
+      if (!user) {          
+         req.flash('error', info.message);
+         return res.redirect("/auth/login"); }
+         req.logIn(user, (err) => {
+            if (err) { return next(err); }
+            if(isAdmin(req)){
             return res.redirect('/admin')
-           } else {
+            } else {
             return res.redirect("/dashboard");
-           }
-           
-       });
+            }
+            
+         });
    })(req, res, next);
 });
 

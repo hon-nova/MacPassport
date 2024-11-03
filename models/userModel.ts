@@ -44,10 +44,12 @@ const database:User[] = [
      if (user) {
        return user;
      }
-     throw new Error(`Couldn't find user with email: ${email}`);
-   //   return
+    //  throw new Error(`Couldn't find user with email: ${email}`);
+     
+     return null;
     } catch(error){
-      console.log(`userModel can't find user: `,error)     
+      console.log(`userModel can't find user: `,error)   
+      // throw error  
     }     
    },
    
@@ -57,11 +59,13 @@ const database:User[] = [
          if (user) {
            return user;
          }
+        //  throw new Error(`Couldn't find user with id:`);
          return null;
          
       } catch(error){
          console.log(error)
-         // throw new Error(`Couldn't find user with id:`);
+        //  throw error
+         
       }
      
    },

@@ -25,7 +25,7 @@ router.get("/admin", async(req,res)=>{
        
       let isPriviledgedAdmin = false
       for (const file of sessionFiles) {
-
+         // console.log(`file.split('.')[0]: `,file.split('.')[0])
          const filePath = path.join(sessionsDir, file);
         
          const sessionData = await fs.promises.readFile(filePath, "utf-8" );         
@@ -42,7 +42,7 @@ router.get("/admin", async(req,res)=>{
          }          
          if (sessionObj.passport && sessionObj.passport.user) {         
             sessions.push({
-            sessionId: file,
+            sessionId: file.split(".")[0],
             userId: sessionObj.passport.user,
             isPriviledgedAdmin
             });

@@ -5,9 +5,9 @@
          <img src="/secure-icon.png" alt="icon" width="20%" />
        </h1>
        <div>
-        <% if (messages.error) { %>
+        <% if (messages) { %>
           <div class="text-danger">
-            <%= messages.error %>
+            <%= messages %>
           </div>
         <% } %>
        </div>

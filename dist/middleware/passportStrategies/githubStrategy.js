@@ -24,8 +24,8 @@ const githubStrategy = new passport_github2_1.Strategy({
     scope: ['user:email']
 }, (req, accessToken, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    console.log(`accessToken: `, accessToken);
-    console.log(`profile: `, profile);
+    // console.log(`accessToken: `, accessToken);
+    // console.log(`profile: `, profile);
     const email = profile.emails && ((_a = profile.emails[0]) === null || _a === void 0 ? void 0 : _a.value) ? profile.emails[0].value : null;
     if (!email) {
         console.log("GitHub email not available.");

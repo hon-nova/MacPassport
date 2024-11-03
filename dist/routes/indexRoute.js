@@ -33,6 +33,7 @@ router.get("/admin", (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const sessions = [];
         let isPriviledgedAdmin = false;
         for (const file of sessionFiles) {
+            // console.log(`file.split('.')[0]: `,file.split('.')[0])
             const filePath = path_1.default.join(sessionsDir, file);
             const sessionData = yield fs_1.default.promises.readFile(filePath, "utf-8");
             const sessionObj = JSON.parse(sessionData);
@@ -47,7 +48,7 @@ router.get("/admin", (req, res) => __awaiter(void 0, void 0, void 0, function* (
             }
             if (sessionObj.passport && sessionObj.passport.user) {
                 sessions.push({
-                    sessionId: file,
+                    sessionId: file.split(".")[0],
                     userId: sessionObj.passport.user,
                     isPriviledgedAdmin
                 });

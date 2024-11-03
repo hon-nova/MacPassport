@@ -1,18 +1,20 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { getUserByEmailAndPassword, getUserById,isUserValid } from "../../controllers/userController"
+import { getUserByEmail, getUserById,isUserValid } from "../../controllers/userController"
 import { PassportStrategy } from '../../interfaces/index'
 import { User } from '../../models/userModel'
 
 const localStrategy = new LocalStrategy({
    usernameField: "email",
-   passwordField:"password"
+   passwordField:"password",
+   
 },
 (email,password,done)=>{
-   const user = getUserByEmailAndPassword(email,password)
-   if(!user){
+   const user = getUserByEmail(email)
+   if(!user){      
       return done(null, false, { message: `Couldn't find user with email: ${email}` });
-   } else if (!isUserValid(user,password)){
+   } 
+   if (!isUserValid(user,password)){
       return done(null, false, { message: "Password is incorrect." });
    }
    return done(null,user)

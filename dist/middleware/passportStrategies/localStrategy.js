@@ -8,13 +8,13 @@ const passport_local_1 = require("passport-local");
 const userController_1 = require("../../controllers/userController");
 const localStrategy = new passport_local_1.Strategy({
     usernameField: "email",
-    passwordField: "password"
+    passwordField: "password",
 }, (email, password, done) => {
-    const user = (0, userController_1.getUserByEmailAndPassword)(email, password);
+    const user = (0, userController_1.getUserByEmail)(email);
     if (!user) {
         return done(null, false, { message: `Couldn't find user with email: ${email}` });
     }
-    else if (!(0, userController_1.isUserValid)(user, password)) {
+    if (!(0, userController_1.isUserValid)(user, password)) {
         return done(null, false, { message: "Password is incorrect." });
     }
     return done(null, user);
