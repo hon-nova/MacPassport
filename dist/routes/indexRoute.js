@@ -21,6 +21,7 @@ console.log(`sessionDir: `, sessionsDir);
 const fs_1 = __importDefault(require("fs"));
 const router = express_1.default.Router();
 router.get("/", (req, res) => {
+    console.log(`route / got triggered`);
     res.send("Welcome HomePage");
 });
 router.get("/dashboard", checkAuth_1.ensureAuthenticated, (req, res) => {

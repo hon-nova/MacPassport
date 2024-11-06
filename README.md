@@ -1,7 +1,7 @@
 ## Intro. to Node.js Auth App with Passport.js
 ### 0. Error Messages
 
-![emaildoesnotexist](public/emaildoesnotexist.png)
+![emaildoesnotexist](public/emailerror.png)
 
 <hr/>
 
@@ -21,4 +21,3 @@
 
 <hr/>
 
-[Submission Link](https://changeable-poultry-d55.notion.site/Passport-Assignment-12800455b75680a6a52bebf5f08b4d3a)

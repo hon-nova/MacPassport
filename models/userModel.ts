@@ -30,9 +30,9 @@ const database:Express.User[] = [
    },
    {
       id:4,
-      name:"Jess Stevenson",
-      email:"jessstevenson@gmail.com",
-      password:"jessstevenson",
+      name:"Jess Stephenson",
+      email:"jessstephenson@gmail.com",
+      password:"jessstephenson",
       role:"admin"
    }
  ];

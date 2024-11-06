@@ -10,6 +10,7 @@ import fs  from 'fs'
 const router = express.Router()
 
 router.get("/",(req,res)=>{
+   console.log(`route / got triggered`)
    res.send("Welcome HomePage")
 })
 router.get("/dashboard", ensureAuthenticated, (req,res)=>{

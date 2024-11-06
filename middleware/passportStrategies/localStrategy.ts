@@ -15,7 +15,7 @@ const localStrategy = new LocalStrategy({
       return done(null, false, { message: `Couldn't find user with email: ${email}` });
    } 
    if (!isUserValid(user,password)){
-      return done(null, false, { message: "Password is incorrect." });
+      return done(null, false, { message: "Password is incorrect" });
    }
    return done(null,user)
 }
@@ -25,7 +25,7 @@ passport.serializeUser(function (user:Express.User,done: (err: any, id?: number)
 })
 
 passport.deserializeUser(function(id:number,done: (err: any, user?: Express.User | false | null) => void){
-   let user:Express.User = getUserById(id)
+   let user = getUserById(id)
    if (user){
       done(null,user)
    } else {

@@ -15,7 +15,7 @@ const localStrategy = new passport_local_1.Strategy({
         return done(null, false, { message: `Couldn't find user with email: ${email}` });
     }
     if (!(0, userController_1.isUserValid)(user, password)) {
-        return done(null, false, { message: "Password is incorrect." });
+        return done(null, false, { message: "Password is incorrect" });
     }
     return done(null, user);
 });
