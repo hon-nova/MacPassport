@@ -33,7 +33,6 @@ async(req: Express.Request, accessToken: string, refreshToken: string, profile: 
    };
    console.log(`githubUser: ${githubUser}`)
    // const foundUser = userModel.findUserById(githubUser.id)  
-
    database.push(githubUser);
    return done(null, githubUser);   
 });

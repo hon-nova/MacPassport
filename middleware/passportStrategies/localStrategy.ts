@@ -25,7 +25,7 @@ passport.serializeUser(function (user:Express.User,done: (err: any, id?: number)
 })
 
 passport.deserializeUser(function(id:number,done: (err: any, user?: Express.User | false | null) => void){
-   let user = getUserById(id)
+   let user:Express.User = getUserById(id)
    if (user){
       done(null,user)
    } else {

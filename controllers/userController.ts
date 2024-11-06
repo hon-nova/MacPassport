@@ -1,6 +1,5 @@
 import {userModel, User} from "../models/userModel";
 
-
 const getUserByEmailAndPassword = (email: string, password: string) => {
   let user = userModel.findOne(email);
   if (user) {
@@ -18,7 +17,7 @@ const getUserByEmail = (email:string)=>{
   return null
   
 }
-const getUserById = (id:string|number) => {
+const getUserById = (id:number) => {
   let user = userModel.findById(id);
   if (user) {
     return user;

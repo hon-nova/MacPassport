@@ -12,8 +12,8 @@ const passportConfig = new PassportConfig(strategies)
 passportConfig.addStrategies(strategies)
 
 const passportMiddleware = (app: Application): void => {
-   app.use(passport.initialize())
-   app.use(passport.session())
+	app.use(passport.initialize())
+	app.use(passport.session())
 
 }
 
