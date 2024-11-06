@@ -15,7 +15,7 @@ router.get("/login", forwardAuthenticated, (req,res)=>{
    res.render("login",{ messages: errorMsg } )
 })
 router.post("/login", (req, res, next) => {
-   passport.authenticate("local", {failureFlash: true, failureRedirect: "/auth/login"},(err:Error, user:User, info:IVerifyOptions) => {
+   passport.authenticate("local", {failureFlash: true, failureRedirect: "/auth/login"},(err:Error, user:Express.User, info:IVerifyOptions) => {
       if (err) { return next(err); }
          
       if (!user) {          

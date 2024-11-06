@@ -17,25 +17,25 @@ const githubStrategy: GitHubStrategy = new GitHubStrategy({
    scope: ['user:email']
 },
 async(req: Express.Request, accessToken: string, refreshToken: string, profile: Profile, done: Function): Promise<void> => {
-   console.log(`accessToken: `, accessToken);
-   console.log(`profile: `, profile);
+   // console.log(`accessToken: `, accessToken);
+   // console.log(`profile: `, profile);
    const email = profile.emails && profile.emails[0]?.value ? profile.emails[0].value : null;
    // console.log(`email:: `,email)
    if (!email) {
       console.log("GitHub email not available.");
       return done(new Error("GitHub email not available"), false);
    }  
-   let githubUser:User = {
+   let githubUser:Express.User = {
       id: parseInt(profile.id),
       name: profile.displayName,
       email: email,
       role: 'user'
    };
    console.log(`githubUser: ${githubUser}`)
+   // const foundUser = userModel.findUserById(githubUser.id)  
 
    database.push(githubUser);
-
-   return done(null, githubUser);
+   return done(null, githubUser);   
 });
 
 const passportGitHubStrategy: PassportStrategy = {

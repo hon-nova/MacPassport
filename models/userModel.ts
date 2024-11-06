@@ -6,7 +6,7 @@ export interface User {
    role:string
 }
 
-const database:User[] = [
+const database:Express.User[] = [
    {
      id: 1,
      name: "Jimmy Smith",

@@ -25,6 +25,17 @@ app.use(
     },
   })
 );
+declare global{
+  namespace Express {
+    interface User {
+      id: number,
+      name: string,
+      email:string,
+      password?:string,
+      role:string
+    }
+  }
+}
 
 import authRoute from "./routes/authRoute";
 import indexRoute from "./routes/indexRoute";
